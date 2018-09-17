@@ -1,0 +1,1 @@
+tourist_test_url: "http://{{public_host}}:{{tourist_port}}"

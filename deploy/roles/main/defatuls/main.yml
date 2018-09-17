@@ -1,0 +1,4 @@
+tourist_port: 8001
+tourist_debug: "true"
+tourist_root: ""
+public_prefix: ""

@@ -1,0 +1,47 @@
+---
+- name: "configure tourist"
+  template:
+    src: default.json.template
+    dest: "{{ tourist_root }}/config/default.json"
+
+
+- name: "deploy {{ tourist }} for debug"
+  docker_container:
+    name: "{{ tourist }}"
+    image: "node:6.10.3"
+    working_dir: "/var/app"
+    volumes:
+      - "{{ tourist_root }}:/var/app:Z"
+    ports:
+      - "{{ tourist_port }}:{{ tourist_port }}"
+ 
+    links:
+      
+      
+    restart: yes
+    recreate: yes
+    state: started
+    entrypoint: "node app.js"
+    when: tourist_debug=="true"
+
+- Name: "deploy {{ tourist }} for integration"
+  docker_container:
+    name: "{{ tourist }}"
+    image: "node:6.10.3"
+    working_dir: "/var/app"
+    volumes:
+      - "{{ tourist_root}}:/var/app:Z"
+    exposed: "{{ tourist_port}}"
+ 
+    links:
+      
+      
+    restart: yes
+    recreate: yes
+    state: started
+    entrypoint: "node app.js"
+    when: tourist_debug=="false"
+
+
+
+...
